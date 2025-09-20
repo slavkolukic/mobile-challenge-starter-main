@@ -1,46 +1,20 @@
 import { Theme } from '@/source/core/types';
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { useStyles, useTheme } from '../../source/core/hooks';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { Text } from '../../source/core/components';
+import { useStyles } from '../../source/core/hooks';
 
 export default function App() {
-  const { theme, preference, setPreference, isDark } = useTheme();
-
   const styles = useStyles(createStyles);
-
-  const Button = ({
-    label,
-    value,
-  }: {
-    label: string;
-    value: 'system' | 'light' | 'dark';
-  }) => (
-    <Pressable
-      onPress={() => setPreference(value)}
-      style={({ pressed }) => [
-        styles.button,
-        preference === value && styles.buttonActive,
-        pressed && { opacity: 0.8 },
-      ]}
-    >
-      <Text style={styles.buttonText}>{label}</Text>
-    </Pressable>
-  );
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Theme demo</Text>
+      <Text variant="header">Text variants</Text>
 
-      <View style={styles.row}>
-        <Button label="System" value="system" />
-        <Button label="Light" value="light" />
-        <Button label="Dark" value="dark" />
-      </View>
-
-      <View style={{ gap: 6 }}>
-        <Text style={styles.info}>Preference: {preference}</Text>
-        <Text style={styles.info}>Effective: {isDark ? 'dark' : 'light'}</Text>
-        <Text style={styles.info}>Background: {theme.colors.background}</Text>
-        <Text style={styles.info}>Surface: {theme.colors.surface}</Text>
+      <View style={styles.stack}>
+        <Text>Body text (default)</Text>
+        <Text variant="secondary">Secondary text</Text>
+        <Text variant="caption">Caption text</Text>
+        <Text variant="label">Label text</Text>
       </View>
     </SafeAreaView>
   );
@@ -61,32 +35,8 @@ const createStyles = (theme: Theme) => {
       textAlign: 'center',
       marginTop: 32,
     },
-    row: {
-      flexDirection: 'row',
-      gap: 12,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    button: {
-      paddingHorizontal: 16,
-      paddingVertical: 12,
-      borderRadius: 10,
-      borderWidth: StyleSheet.hairlineWidth,
-      borderColor: theme.colors.border,
-      backgroundColor: theme.colors.surface,
-    },
-    buttonActive: {
-      backgroundColor: theme.colors.iconBackground,
-      borderColor: theme.colors.textSecondary,
-    },
-    buttonText: {
-      color: theme.colors.textPrimary,
-      fontSize: 16,
-      fontWeight: '500',
-    },
-    info: {
-      color: theme.colors.textSecondary,
-      textAlign: 'center',
+    stack: {
+      gap: 8,
     },
   });
 };
