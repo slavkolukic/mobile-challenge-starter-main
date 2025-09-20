@@ -4,7 +4,7 @@ import { Text } from 'react-native';
 export default function NotFoundScreen() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
+      <Stack.Screen />
       <Text>This screen does not exist.</Text>
     </>
   );
