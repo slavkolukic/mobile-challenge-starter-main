@@ -8,6 +8,7 @@
     "scheme": "studyflash-mobile-challenge-starter",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+
     "ios": {
       "supportsTablet": true
     },
@@ -30,9 +31,7 @@
           "resizeMode": "cover",
           "backgroundColor": "#8E11B0"
         }
-      ],
-      "expo-font",
-      "expo-web-browser"
+      ]
     ],
     "experiments": {
       "typedRoutes": true
