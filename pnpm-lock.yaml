@@ -104,6 +104,9 @@ importers:
       react-native-markdown-display:
         specifier: ^7.0.2
         version: 7.0.2(react-native@0.79.5(@babel/core@7.28.3)(@types/react@19.1.13)(react@19.0.0))(react@19.0.0)
+      react-native-popup-menu:
+        specifier: ^0.18.0
+        version: 0.18.0
       react-native-reanimated:
         specifier: ~3.17.4
         version: 3.17.5(@babel/core@7.28.3)(react-native@0.79.5(@babel/core@7.28.3)(@types/react@19.1.13)(react@19.0.0))(react@19.0.0)
@@ -3530,6 +3533,9 @@ packages:
     peerDependencies:
       react: '>=16.2.0'
       react-native: '>=0.50.4'
+
+  react-native-popup-menu@0.18.0:
+    resolution: {integrity: sha512-XD3gyp/hwL5YWw2J034DerfvbJ6S2YHqAzvqAFRU+UGnFD4JyTqggfm4UyynBD26O1PDoRb45Loil+NZCGfCnA==}
 
   react-native-reanimated@3.17.5:
     resolution: {integrity: sha512-SxBK7wQfJ4UoWoJqQnmIC7ZjuNgVb9rcY5Xc67upXAFKftWg0rnkknTw6vgwnjRcvYThrjzUVti66XoZdDJGtw==}
@@ -8486,6 +8492,8 @@ snapshots:
       react: 19.0.0
       react-native: 0.79.5(@babel/core@7.28.3)(@types/react@19.1.13)(react@19.0.0)
       react-native-fit-image: 1.5.5
+
+  react-native-popup-menu@0.18.0: {}
 
   react-native-reanimated@3.17.5(@babel/core@7.28.3)(react-native@0.79.5(@babel/core@7.28.3)(@types/react@19.1.13)(react@19.0.0))(react@19.0.0):
     dependencies:
