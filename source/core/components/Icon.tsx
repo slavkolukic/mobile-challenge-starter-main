@@ -1,3 +1,4 @@
+import ArrowDown from '../assets/icons/arrow-down.svg';
 import Compose from '../assets/icons/compose.svg';
 import Menu from '../assets/icons/menu.svg';
 import More from '../assets/icons/more.svg';
@@ -11,6 +12,7 @@ const iconMap = {
   'temporary-chat-off': TemporaryChatOff,
   'temporary-chat-on': TemporaryChatOn,
   more: More,
+  'arrow-down': ArrowDown,
 };
 
 type IconProps = {
