@@ -1,7 +1,7 @@
-import { MainAppHeader } from '@/source/core/components';
 import { Theme } from '@/source/core/types';
 import {
   ConversationStarterCarousel,
+  MainAppHeader,
   TemporaryChatInfo,
 } from '@/source/features/chat/components';
 import { useState } from 'react';

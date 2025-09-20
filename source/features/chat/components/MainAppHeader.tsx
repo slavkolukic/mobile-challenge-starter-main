@@ -1,11 +1,9 @@
+import { Icon, PopupSelectMenu, Text } from '@/source/core/components';
+import { ACTIVE_OPACITY } from '@/source/core/constants';
+import { useStyles, useTheme } from '@/source/core/hooks';
+import { Theme } from '@/source/core/types';
 import * as Haptics from 'expo-haptics';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { ACTIVE_OPACITY } from '../constants';
-import { useStyles, useTheme } from '../hooks';
-import { Theme } from '../types';
-import { Icon } from './Icon';
-import { PopupSelectMenu } from './PopupSelectMenu';
-import { Text } from './Text';
 
 type Props = {
   temporaryChatSelected: boolean;
