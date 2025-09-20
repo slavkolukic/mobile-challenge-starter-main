@@ -1,6 +1,6 @@
-import { MainAppHeader, Text } from '@/source/core/components';
+import { MainAppHeader } from '@/source/core/components';
 import { Theme } from '@/source/core/types';
-import { FlashList } from '@shopify/flash-list';
+import { TemporaryChatInfo } from '@/source/features/chat/components';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,18 +14,15 @@ export default function MainScreen() {
     setTemporaryChatSelected(previous => !previous);
   };
 
+  const content = temporaryChatSelected ? <TemporaryChatInfo /> : null;
+
   return (
     <SafeAreaView style={styles.container}>
       <MainAppHeader
         temporaryChatSelected={temporaryChatSelected}
         onPressTemporaryChat={handlePressTemporaryChat}
       />
-      <FlashList
-        data={['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']}
-        renderItem={({ item }) => {
-          return <Text style={{ opacity: 0 }}>{item}</Text>;
-        }}
-      />
+      {content}
     </SafeAreaView>
   );
 }
