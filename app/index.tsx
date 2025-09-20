@@ -1,6 +1,9 @@
 import { MainAppHeader } from '@/source/core/components';
 import { Theme } from '@/source/core/types';
-import { TemporaryChatInfo } from '@/source/features/chat/components';
+import {
+  ConversationStarterCarousel,
+  TemporaryChatInfo,
+} from '@/source/features/chat/components';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -14,7 +17,11 @@ export default function MainScreen() {
     setTemporaryChatSelected(previous => !previous);
   };
 
-  const content = temporaryChatSelected ? <TemporaryChatInfo /> : null;
+  const content = temporaryChatSelected ? (
+    <TemporaryChatInfo />
+  ) : (
+    <ConversationStarterCarousel />
+  );
 
   return (
     <SafeAreaView style={styles.container}>
