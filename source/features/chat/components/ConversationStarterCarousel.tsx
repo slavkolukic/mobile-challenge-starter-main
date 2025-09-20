@@ -28,7 +28,7 @@ type Props = {
 
 export const ConversationStarterCarousel: FC<Props> = ({ onItemSelected }) => {
   const styles = useStyles(createStyles);
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
 
   const handleOnItemSelected = (title: string, subtitle: string) => {
     onItemSelected?.(`${title} ${subtitle}`);
@@ -59,6 +59,7 @@ export const ConversationStarterCarousel: FC<Props> = ({ onItemSelected }) => {
   return (
     <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.container}>
       <FlashList
+        key={isDark ? 'dark' : 'light'}
         data={data}
         keyExtractor={item => item.id}
         horizontal
