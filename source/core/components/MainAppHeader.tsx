@@ -4,6 +4,7 @@ import { ACTIVE_OPACITY } from '../constants';
 import { useStyles, useTheme } from '../hooks';
 import { Theme } from '../types';
 import { Icon } from './Icon';
+import { PopupSelectMenu } from './PopupSelectMenu';
 import { Text } from './Text';
 
 type Props = {
@@ -17,6 +18,7 @@ export const MainAppHeader = ({
 }: Props) => {
   const styles = useStyles(createStyles);
   const { theme } = useTheme();
+  const { preference, setPreference } = useTheme();
 
   const handlePressTemporaryChat = () => {
     Haptics.impactAsync();
@@ -26,7 +28,33 @@ export const MainAppHeader = ({
   return (
     <View style={styles.headerContainer}>
       <View style={styles.headerLeft}>
-        <Icon name="menu" />
+        <PopupSelectMenu
+          trigger={<Icon name="menu" />}
+          title="Select Theme"
+          items={[
+            {
+              id: 'system',
+              title: 'System',
+              subtitle: 'Follow device setting',
+              isSelected: preference === 'system',
+            },
+            {
+              id: 'light',
+              title: 'Light',
+              subtitle: 'Bright appearance',
+              isSelected: preference === 'light',
+            },
+            {
+              id: 'dark',
+              title: 'Dark',
+              subtitle: 'Better for low light',
+              isSelected: preference === 'dark',
+            },
+          ]}
+          onSelect={item =>
+            setPreference(item.id as 'system' | 'light' | 'dark')
+          }
+        />
       </View>
       <View style={styles.headerCenter}>
         <View style={styles.mainPartContainer}>
