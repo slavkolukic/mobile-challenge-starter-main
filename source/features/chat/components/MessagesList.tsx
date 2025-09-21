@@ -1,15 +1,19 @@
 import { UIMessage } from '@ai-sdk/react';
 import { FlashList, ListRenderItem } from '@shopify/flash-list';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AssistantMessage } from './AssistantMessage';
 import { MessageLoading } from './MessageLoading';
 import { UserMessage } from './UserMessage';
+
 type Props = {
   messages: UIMessage[];
 };
 
+const SEPARATOR_HEIGHT = 12;
+
 export const MessagesList: FC<Props> = ({ messages }) => {
+  const itemHeightsRef = useRef<Record<number, number>>({});
   const renderItem: ListRenderItem<UIMessage> = useCallback(
     ({ item: message, index }) => {
       const messageText = message.parts
@@ -23,16 +27,34 @@ export const MessagesList: FC<Props> = ({ messages }) => {
         | undefined;
       const streamingDone = lastTextPart?.state === 'done';
 
+      const handleMessageLayout = (itemIndex: number, height: number) => {
+        itemHeightsRef.current[itemIndex] = height;
+      };
+
       if (message.role === 'user') {
-        return <UserMessage messageText={messageText} />;
+        return (
+          <View
+            onLayout={e =>
+              handleMessageLayout(index, e.nativeEvent.layout.height)
+            }
+          >
+            <UserMessage messageText={messageText} />
+          </View>
+        );
       }
 
       return (
-        <AssistantMessage
-          isLastMessage={index === messages.length - 1}
-          messageText={messageText}
-          streamingDone={streamingDone}
-        />
+        <View
+          onLayout={e =>
+            handleMessageLayout(index, e.nativeEvent.layout.height)
+          }
+        >
+          <AssistantMessage
+            isLastMessage={index === messages.length - 1}
+            messageText={messageText}
+            streamingDone={streamingDone}
+          />
+        </View>
       );
     },
     [messages]
@@ -40,8 +62,34 @@ export const MessagesList: FC<Props> = ({ messages }) => {
 
   const lastMessageSentByUser = messages[messages.length - 1].role === 'user';
 
+  const flashListRef = useRef<FlashList<UIMessage>>(null);
+
+  useEffect(() => {
+    if (messages.length === 0 || messages.length === 1) return;
+
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage.role !== 'user') return;
+
+    setTimeout(() => {
+      const lastUserIndex = messages.length - 1;
+      let totalHeightBeforeLastUser = 0;
+      for (let i = 0; i < lastUserIndex; i++) {
+        const height = itemHeightsRef.current[i];
+        if (typeof height === 'number') totalHeightBeforeLastUser += height;
+      }
+
+      totalHeightBeforeLastUser += SEPARATOR_HEIGHT * lastUserIndex;
+
+      flashListRef.current?.scrollToOffset({
+        offset: totalHeightBeforeLastUser + 10,
+        animated: true,
+      });
+    }, 20);
+  }, [messages]);
+
   return (
     <FlashList
+      ref={flashListRef}
       data={messages}
       renderItem={renderItem}
       ItemSeparatorComponent={ItemSeparatorComponent}
@@ -58,7 +106,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   separator: {
-    height: 12,
+    height: SEPARATOR_HEIGHT,
   },
 });
 
