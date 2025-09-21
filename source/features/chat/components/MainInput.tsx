@@ -94,6 +94,7 @@ export const MainInput = ({
       </TouchableOpacity>
       <View style={styles.inputContainer}>
         <TextInput
+          autoFocus
           style={styles.input}
           placeholder="Ask anything"
           placeholderTextColor={theme.colors.textSecondary}
