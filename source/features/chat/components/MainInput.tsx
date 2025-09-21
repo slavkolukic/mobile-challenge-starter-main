@@ -94,6 +94,8 @@ export const MainInput = ({ onSendMessage }: Props) => {
           value={text}
           onChangeText={setText}
           autoCorrect={false}
+          multiline={true}
+          scrollEnabled={true}
         />
         <View style={styles.iconsContainer}>
           {!isUserTyping && (
@@ -119,6 +121,7 @@ export const MainInput = ({ onSendMessage }: Props) => {
             />
           </AnimatedPressable>
         </View>
+        <View style={styles.fakeIcon} pointerEvents="none" />
       </View>
     </View>
   );
@@ -129,6 +132,7 @@ const createStyles = (theme: Theme) =>
     container: {
       paddingHorizontal: 16,
       flexDirection: 'row',
+      alignItems: 'flex-end',
     },
     attachmentButton: {
       width: 40,
@@ -141,23 +145,31 @@ const createStyles = (theme: Theme) =>
     inputContainer: {
       flex: 1,
       backgroundColor: theme.colors.surface,
-      borderRadius: 30,
-      padding: 6,
+      borderRadius: 20,
+      paddingLeft: 6,
+      paddingVertical: 6,
       marginLeft: 8,
       flexDirection: 'row',
     },
     input: {
       flex: 1,
-      paddingHorizontal: 12,
+      paddingLeft: 12,
+      paddingRight: 48,
       ...textStyles.body,
       lineHeight: 0,
       color: theme.colors.textPrimary,
+      maxHeight: 160,
     },
     iconsContainer: {
-      backgroundColor: theme.colors.surface,
       justifyContent: 'center',
+      alignItems: 'flex-end',
       flexDirection: 'row',
       gap: 8,
+
+      position: 'absolute',
+      right: 6,
+      bottom: 6,
+      alignSelf: 'flex-end',
     },
     mainActionButton: {
       width: 28,
@@ -173,5 +185,9 @@ const createStyles = (theme: Theme) =>
       borderRadius: 14,
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    fakeIcon: {
+      opacity: 0,
+      height: 28,
     },
   });
