@@ -4,6 +4,7 @@ import { useStyles, useTheme } from '@/source/core/hooks';
 import { Theme } from '@/source/core/types';
 import * as Haptics from 'expo-haptics';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ModelSelector } from './ModelSelector';
 
 type Props = {
   temporaryChatSelected: boolean;
@@ -55,22 +56,7 @@ export const MainAppHeader = ({
         />
       </View>
       <View style={styles.headerCenter}>
-        <View style={styles.mainPartContainer}>
-          <Text variant="header">ChatGPT</Text>
-          <Text
-            style={styles.textContainer}
-            textColor={theme.colors.textSecondary}
-            variant="header"
-          >
-            5
-          </Text>
-          <Icon
-            color={theme.colors.textSecondary}
-            name="arrow-down"
-            size={16}
-            style={styles.iconContainer}
-          />
-        </View>
+        <ModelSelector />
         {temporaryChatSelected && (
           <Text textColor={theme.colors.textSecondary} variant="label">
             Temporary Chat
@@ -112,15 +98,5 @@ const createStyles = (theme: Theme) =>
       flex: 1,
       justifyContent: 'center',
       paddingHorizontal: 16,
-    },
-    mainPartContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-    },
-    iconContainer: {
-      marginLeft: 2,
-    },
-    textContainer: {
-      marginLeft: 4,
     },
   });
