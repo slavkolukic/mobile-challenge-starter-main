@@ -1,8 +1,12 @@
 import ArrowDown from '../assets/icons/arrow-down.svg';
+import ArrowUpAlt from '../assets/icons/arrow-up-alt.svg';
 import Checkmark from '../assets/icons/checkmark.svg';
 import Compose from '../assets/icons/compose.svg';
 import Menu from '../assets/icons/menu.svg';
+import Microphone from '../assets/icons/microphone.svg';
 import More from '../assets/icons/more.svg';
+import Plus from '../assets/icons/plus.svg';
+import Soundwave from '../assets/icons/soundwave.svg';
 import TemporaryChatOff from '../assets/icons/temporary-chat-off.svg';
 import TemporaryChatOn from '../assets/icons/temporary-chat-on.svg';
 import { useTheme } from '../hooks';
@@ -15,6 +19,10 @@ const iconMap = {
   more: More,
   'arrow-down': ArrowDown,
   checkmark: Checkmark,
+  plus: Plus,
+  'arrow-up-alt': ArrowUpAlt,
+  soundwave: Soundwave,
+  microphone: Microphone,
 };
 
 type IconProps = {
