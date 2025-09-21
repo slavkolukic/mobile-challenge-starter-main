@@ -1,18 +1,26 @@
 import { Text } from '@/source/core/components';
 import { useStyles, useTheme } from '@/source/core/hooks';
 import { Theme } from '@/source/core/types';
-import { StyleSheet } from 'react-native';
+import { Keyboard, Pressable, StyleSheet } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 const text =
   "This chat won't appear in history, use or update ChatGPT's memory, or be used to train our models. For safety purposes, we may keep a copy of this chat for up to 30 days.";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export const TemporaryChatInfo = () => {
   const styles = useStyles(createStyles);
   const { theme } = useTheme();
 
   return (
-    <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.container}>
+    <AnimatedPressable
+      onPress={Keyboard.dismiss}
+      accessible={false}
+      entering={FadeIn}
+      exiting={FadeOut}
+      style={styles.container}
+    >
       <Text
         variant="header2"
         style={styles.headingText}
@@ -27,7 +35,7 @@ export const TemporaryChatInfo = () => {
       >
         {text}
       </Text>
-    </Animated.View>
+    </AnimatedPressable>
   );
 };
 

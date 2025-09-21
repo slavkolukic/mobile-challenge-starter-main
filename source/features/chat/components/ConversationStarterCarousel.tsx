@@ -3,7 +3,7 @@ import { useStyles, useTheme } from '@/source/core/hooks';
 import { Theme } from '@/source/core/types';
 import { FlashList, ListRenderItem } from '@shopify/flash-list';
 import { FC } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Keyboard, Pressable, StyleSheet, View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 const data = [
@@ -58,13 +58,17 @@ export const ConversationStarterCarousel: FC<Props> = ({ onItemSelected }) => {
 
   return (
     <Animated.View entering={FadeIn} exiting={FadeOut} style={styles.container}>
+      <Pressable
+        style={styles.flex1}
+        onPress={Keyboard.dismiss}
+        accessible={false}
+      />
       <FlashList
         key={isDark ? 'dark' : 'light'}
         data={data}
         keyExtractor={item => item.id}
         horizontal
         showsHorizontalScrollIndicator={false}
-        estimatedItemSize={220}
         ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
         contentContainerStyle={styles.listContent}
         renderItem={renderItem}
@@ -90,5 +94,8 @@ const createStyles = (theme: Theme) =>
       backgroundColor: theme.colors.surface,
       justifyContent: 'center',
       gap: 2,
+    },
+    flex1: {
+      flex: 1,
     },
   });
