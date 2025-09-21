@@ -1,3 +1,4 @@
+import { WINDOW_HEIGHT } from '@/source/core/constants';
 import { useTheme } from '@/source/core/hooks';
 import { UIMessage } from '@ai-sdk/react';
 import { FlashList, ListRenderItem } from '@shopify/flash-list';
@@ -19,7 +20,7 @@ type Props = {
 
 export const MessagesList: FC<Props> = ({ messages }) => {
   const renderItem: ListRenderItem<UIMessage> = useCallback(
-    ({ item: message }) => {
+    ({ item: message, index }) => {
       const messageText = message.parts
         .map(part => (part.type === 'text' ? part.text : ''))
         .join('');
@@ -37,12 +38,13 @@ export const MessagesList: FC<Props> = ({ messages }) => {
 
       return (
         <AssistantMessage
+          isLastMessage={index === messages.length - 1}
           messageText={messageText}
           streamingDone={streamingDone}
         />
       );
     },
-    []
+    [messages]
   );
 
   const lastMessageSentByUser = messages[messages.length - 1].role === 'user';
@@ -62,6 +64,7 @@ export const MessagesList: FC<Props> = ({ messages }) => {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 20,
+    flexGrow: 1,
   },
   separator: {
     height: 12,
@@ -69,6 +72,7 @@ const styles = StyleSheet.create({
   loadingContainer: {
     paddingHorizontal: 16,
     marginTop: 18,
+    minHeight: WINDOW_HEIGHT,
   },
 });
 

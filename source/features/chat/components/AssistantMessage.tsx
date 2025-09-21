@@ -1,4 +1,5 @@
 import { Icon, Text } from '@/source/core/components';
+import { WINDOW_HEIGHT } from '@/source/core/constants';
 import { useStyles } from '@/source/core/hooks';
 import { Theme } from '@/source/core/types';
 import * as Clipboard from 'expo-clipboard';
@@ -26,12 +27,13 @@ import Animated, {
 type Props = {
   messageText: string;
   streamingDone: boolean;
+  isLastMessage: boolean;
 };
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 export const AssistantMessage: FC<Props> = memo(
-  ({ messageText, streamingDone }) => {
+  ({ messageText, streamingDone, isLastMessage }) => {
     const styles = useStyles(createStyles);
 
     const [messageCopied, setMessageCopied] = useState(false);
@@ -67,7 +69,12 @@ export const AssistantMessage: FC<Props> = memo(
     }, [messageText]);
 
     return (
-      <View style={styles.itemContainer}>
+      <View
+        style={[
+          styles.itemContainer,
+          isLastMessage && { minHeight: WINDOW_HEIGHT },
+        ]}
+      >
         <View style={styles.messageContainer}>
           <View style={styles.charactersContainer}>
             {words.map((word, idx) => (
