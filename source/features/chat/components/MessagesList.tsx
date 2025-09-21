@@ -3,6 +3,7 @@ import { FlashList, ListRenderItem } from '@shopify/flash-list';
 import { FC, useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { AssistantMessage } from './AssistantMessage';
+import { AssistantWeatherMessage } from './AssistantWeatherMessage';
 import { MessageLoading } from './MessageLoading';
 import { UserMessage } from './UserMessage';
 
@@ -39,6 +40,29 @@ export const MessagesList: FC<Props> = ({ messages }) => {
             }
           >
             <UserMessage messageText={messageText} />
+          </View>
+        );
+      }
+
+      const weatherToolPart = (message.parts as unknown as any[]).find(
+        p =>
+          p?.type === 'tool-weather' &&
+          p?.output &&
+          typeof p.output.temperature === 'number' &&
+          typeof p.output.location === 'string'
+      );
+
+      if (weatherToolPart) {
+        return (
+          <View
+            onLayout={e =>
+              handleMessageLayout(index, e.nativeEvent.layout.height)
+            }
+          >
+            <AssistantWeatherMessage
+              location={weatherToolPart.output.location}
+              temperature={weatherToolPart.output.temperature}
+            />
           </View>
         );
       }
