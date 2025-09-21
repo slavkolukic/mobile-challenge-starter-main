@@ -1,4 +1,4 @@
-import { Text } from '@/source/core/components';
+import { Text, TextVariant } from '@/source/core/components';
 import { memo, useEffect } from 'react';
 import Animated, {
   interpolate,
@@ -8,8 +8,15 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 
+type Props = {
+  word: string;
+  delay: number;
+  textVariant?: TextVariant;
+  textColor?: string;
+};
+
 export const AnimatedWord = memo(
-  ({ word, delay }: { word: string; delay: number }) => {
+  ({ word, delay, textVariant, textColor }: Props) => {
     const offset = useSharedValue(0);
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -23,7 +30,7 @@ export const AnimatedWord = memo(
 
     return (
       <Animated.View style={animatedStyle}>
-        <Text>{`${word} `}</Text>
+        <Text variant={textVariant} textColor={textColor}>{`${word} `}</Text>
       </Animated.View>
     );
   }
