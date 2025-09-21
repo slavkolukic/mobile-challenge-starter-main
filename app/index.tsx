@@ -87,7 +87,11 @@ export default function MainScreen() {
   ]);
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior="padding">
+    <KeyboardAvoidingView
+      style={styles.container}
+      behavior="padding"
+      keyboardVerticalOffset={-20}
+    >
       <SafeAreaView style={styles.container}>
         <MainAppHeader
           sessionStarted={sessionStarted}
