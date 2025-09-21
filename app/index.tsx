@@ -11,7 +11,7 @@ import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { fetch as expoFetch } from 'expo/fetch';
 import { useCallback, useMemo, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStyles } from '../source/core/hooks';
 
@@ -87,21 +87,23 @@ export default function MainScreen() {
   ]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <MainAppHeader
-        sessionStarted={sessionStarted}
-        temporaryChatSelected={temporaryChatSelected}
-        onPressTemporaryChat={handlePressTemporaryChat}
-        onPressCompose={handlePressCompose}
-      />
-      <View style={styles.contentContainer}>{content}</View>
-      <MainInput
-        text={text}
-        onTextChange={setText}
-        onSendMessage={handleSendMessage}
-        actionsDisabled={status !== 'ready'}
-      />
-    </SafeAreaView>
+    <KeyboardAvoidingView style={styles.container} behavior="padding">
+      <SafeAreaView style={styles.container}>
+        <MainAppHeader
+          sessionStarted={sessionStarted}
+          temporaryChatSelected={temporaryChatSelected}
+          onPressTemporaryChat={handlePressTemporaryChat}
+          onPressCompose={handlePressCompose}
+        />
+        <View style={styles.contentContainer}>{content}</View>
+        <MainInput
+          text={text}
+          onTextChange={setText}
+          onSendMessage={handleSendMessage}
+          actionsDisabled={status !== 'ready'}
+        />
+      </SafeAreaView>
+    </KeyboardAvoidingView>
   );
 }
 
