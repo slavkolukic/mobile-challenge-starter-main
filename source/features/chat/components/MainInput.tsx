@@ -3,7 +3,7 @@ import { ACTIVE_OPACITY } from '@/source/core/constants';
 import { useStyles, useTheme } from '@/source/core/hooks';
 import { Theme } from '@/source/core/types';
 import * as Haptics from 'expo-haptics';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import {
   Alert,
   Pressable,
@@ -21,23 +21,23 @@ import Animated, {
 } from 'react-native-reanimated';
 
 type Props = {
-  onSendMessage?: (message: string) => void;
+  onSendMessage?: () => void;
+  text: string;
+  onTextChange: (text: string) => void;
 };
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export const MainInput = ({ onSendMessage }: Props) => {
+export const MainInput = ({ onSendMessage, text, onTextChange }: Props) => {
   const styles = useStyles(createStyles);
   const { theme } = useTheme();
-
-  const micScale = useSharedValue(1);
-  const mainScale = useSharedValue(1);
-
-  const [text, setText] = useState('');
 
   const isUserTyping = useMemo(() => {
     return text.length > 0;
   }, [text]);
+
+  const micScale = useSharedValue(1);
+  const mainScale = useSharedValue(1);
 
   const handleAttachmentButtonPress = () => {
     Haptics.impactAsync();
@@ -49,8 +49,7 @@ export const MainInput = ({ onSendMessage }: Props) => {
     runTapAnimation(mainScale);
 
     if (isUserTyping) {
-      onSendMessage?.(text);
-      setText('');
+      onSendMessage?.();
     } else {
       Alert.alert('Opens talk to GPT mode.');
     }
@@ -92,7 +91,7 @@ export const MainInput = ({ onSendMessage }: Props) => {
           placeholder="Ask anything"
           placeholderTextColor={theme.colors.textSecondary}
           value={text}
-          onChangeText={setText}
+          onChangeText={onTextChange}
           autoCorrect={false}
           multiline={true}
           scrollEnabled={true}
