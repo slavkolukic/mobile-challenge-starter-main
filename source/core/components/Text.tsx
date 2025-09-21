@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { useTheme } from '../hooks';
 
-type TextVariant = keyof typeof styles;
+export type TextVariant = keyof typeof styles;
 
 type TextProps = RNTextProps & {
   variant?: TextVariant;
