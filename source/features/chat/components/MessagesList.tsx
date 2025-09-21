@@ -16,11 +16,23 @@ export const MessagesList: FC<Props> = ({ messages }) => {
         .map(part => (part.type === 'text' ? part.text : ''))
         .join('');
 
+      const lastTextPart = [...message.parts]
+        .reverse()
+        .find(p => p.type === 'text') as
+        | { type: 'text'; state?: 'streaming' | 'done'; text: string }
+        | undefined;
+      const streamingDone = lastTextPart?.state === 'done';
+
       if (message.role === 'user') {
         return <UserMessage messageText={messageText} />;
       }
 
-      return <AssistantMessage messageText={messageText} />;
+      return (
+        <AssistantMessage
+          messageText={messageText}
+          streamingDone={streamingDone}
+        />
+      );
     },
     []
   );
