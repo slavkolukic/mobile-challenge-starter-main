@@ -1,4 +1,4 @@
-import { Icon, Text } from '@/source/core/components';
+import { Icon } from '@/source/core/components';
 import { WINDOW_HEIGHT } from '@/source/core/constants';
 import { useStyles } from '@/source/core/hooks';
 import { Theme } from '@/source/core/types';
@@ -14,15 +14,8 @@ import React, {
   useState,
 } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import Animated, {
-  FadeIn,
-  FadeOut,
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withDelay,
-  withTiming,
-} from 'react-native-reanimated';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { AnimatedWord } from './AnimatedWord';
 
 type Props = {
   messageText: string;
@@ -78,7 +71,7 @@ export const AssistantMessage: FC<Props> = memo(
         <View style={styles.messageContainer}>
           <View style={styles.charactersContainer}>
             {words.map((word, idx) => (
-              <Word key={idx} word={word} delay={idx * 18} />
+              <AnimatedWord key={idx} word={word} delay={idx * 18} />
             ))}
           </View>
         </View>
@@ -183,24 +176,3 @@ const createStyles = (theme: Theme) => {
     },
   });
 };
-
-const Word = memo(({ word, delay }: { word: string; delay: number }) => {
-  const offset = useSharedValue(0);
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: offset.value,
-    transform: [{ translateY: interpolate(offset.value, [0, 1], [-1, 0]) }],
-  }));
-
-  useEffect(() => {
-    offset.value = withDelay(delay, withTiming(1, { duration: 200 }));
-  }, [offset, delay]);
-
-  return (
-    <Animated.View style={animatedStyle}>
-      <Text>{`${word} `}</Text>
-    </Animated.View>
-  );
-});
-
-Word.displayName = 'Word';
