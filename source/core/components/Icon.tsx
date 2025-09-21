@@ -2,6 +2,7 @@ import ArrowDown from '../assets/icons/arrow-down.svg';
 import ArrowUpAlt from '../assets/icons/arrow-up-alt.svg';
 import Checkmark from '../assets/icons/checkmark.svg';
 import Compose from '../assets/icons/compose.svg';
+import Duplicate from '../assets/icons/duplicate.svg';
 import Menu from '../assets/icons/menu.svg';
 import Microphone from '../assets/icons/microphone.svg';
 import More from '../assets/icons/more.svg';
@@ -9,6 +10,10 @@ import Plus from '../assets/icons/plus.svg';
 import Soundwave from '../assets/icons/soundwave.svg';
 import TemporaryChatOff from '../assets/icons/temporary-chat-off.svg';
 import TemporaryChatOn from '../assets/icons/temporary-chat-on.svg';
+import ThumbsDownFilled from '../assets/icons/thumbs-down-filled.svg';
+import ThumbsDown from '../assets/icons/thumbs-down.svg';
+import ThumbsUpFilled from '../assets/icons/thumbs-up-filled.svg';
+import ThumbsUp from '../assets/icons/thumbs-up.svg';
 import { useTheme } from '../hooks';
 
 const iconMap = {
@@ -23,6 +28,11 @@ const iconMap = {
   'arrow-up-alt': ArrowUpAlt,
   soundwave: Soundwave,
   microphone: Microphone,
+  duplicate: Duplicate,
+  'thumbs-up': ThumbsUp,
+  'thumbs-down': ThumbsDown,
+  'thumbs-up-filled': ThumbsUpFilled,
+  'thumbs-down-filled': ThumbsDownFilled,
 };
 
 type IconProps = {
