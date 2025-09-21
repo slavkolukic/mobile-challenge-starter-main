@@ -10,5 +10,7 @@ export const darkTheme: Theme = {
     iconPrimary: '#ffffff',
     iconSecondary: '#cdcdcd',
     iconBackground: '#414141',
+    textContrast: '#000000',
+    backgroundContrast: '#ffffff',
   },
 };

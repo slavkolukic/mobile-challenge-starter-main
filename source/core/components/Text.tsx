@@ -32,7 +32,7 @@ export const Text: FC<TextProps> = ({
   );
 };
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   header: {
     fontSize: 18,
     fontWeight: '500',

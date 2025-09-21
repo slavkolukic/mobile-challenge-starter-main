@@ -10,5 +10,7 @@ export const lightTheme: Theme = {
     iconPrimary: '#000000',
     iconSecondary: '#5d5d5d',
     iconBackground: '#f3f3f3',
+    textContrast: '#ffffff',
+    backgroundContrast: '#000000',
   },
 };

@@ -8,5 +8,7 @@ export type Theme = {
     iconPrimary: string;
     iconSecondary: string;
     iconBackground: string;
+    textContrast: string;
+    backgroundContrast: string;
   };
 };

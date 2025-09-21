@@ -2,6 +2,7 @@ import { Theme } from '@/source/core/types';
 import {
   ConversationStarterCarousel,
   MainAppHeader,
+  MainInput,
   TemporaryChatInfo,
 } from '@/source/features/chat/components';
 import { useState } from 'react';
@@ -30,6 +31,7 @@ export default function MainScreen() {
         onPressTemporaryChat={handlePressTemporaryChat}
       />
       {content}
+      <MainInput />
     </SafeAreaView>
   );
 }

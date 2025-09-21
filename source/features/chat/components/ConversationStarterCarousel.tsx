@@ -81,7 +81,7 @@ const createStyles = (theme: Theme) =>
     },
     listContent: {
       paddingHorizontal: 16,
-      paddingVertical: 12,
+      paddingVertical: 8,
     },
     card: {
       padding: 12,
