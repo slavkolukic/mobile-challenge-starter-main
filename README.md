@@ -45,25 +45,12 @@ GOOGLE_GENERATIVE_AI_API_KEY=provided_key_here
 - This repo includes a branch with upgraded Expo to run on real devices with the current Expo Go.
 - To use it:
 
-  ```bash
-  # See available branches and locate the upgraded Expo branch
-  git fetch --all --prune
-  git branch -r
-
-  # Checkout the upgraded Expo branch (replace with the actual branch name)
-  git checkout <upgraded-expo-branch>
-  pnpm install
-  npx expo
-  ```
-
-If you only target the simulator, the default branch is fine.
-
 ---
 
 ## Notes and known limitations
 
 - Animated streaming text can be further optimized using React Native Skia for high-performance text effects. See `react-native-skia` by Shopify: [github.com/Shopify/react-native-skia](https://github.com/Shopify/react-native-skia).
 - Markdown rendering is not implemented. It can be added using `@expensify/react-native-live-markdown`: [github.com/Expensify/react-native-live-markdown](https://github.com/Expensify/react-native-live-markdown).
-- Known bug: the weather widget currently interferes with scrolling to the precise message offset and allows scrolling past the content. This can be fixed with additional layout measurement and offset calculations, but I didn’t have time to implement it.
+- Known bug: the weather widget currently interferes with scrolling to the precise message offset and scrolling past the content is possible. This can be fixed with additional layout measurement and offset calculations, but I ran out of time for that.
 - Android: I didn’t run the Android app, but everything should be fine there given the current setup.
 - Model behavior: when the weather widget is invoked, the model responds only with temperature and location for that tool-driven message.
