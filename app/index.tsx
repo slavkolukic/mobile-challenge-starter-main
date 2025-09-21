@@ -36,7 +36,7 @@ export default function MainScreen() {
   }, [messages]);
 
   const handleSendMessage = () => {
-    sendMessage({ text });
+    sendMessage({ text: text.trim() });
     setText('');
   };
 
