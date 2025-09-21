@@ -10,7 +10,7 @@ import { generateAPIUrl } from '@/utils';
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
 import { fetch as expoFetch } from 'expo/fetch';
-import { useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStyles } from '../source/core/hooks';
@@ -53,6 +53,13 @@ export default function MainScreen() {
     setChatId(previous => previous + 1);
   };
 
+  const handleConversationStarterCarouselItemSelected = useCallback(
+    (prompt: string) => {
+      sendMessage({ text: prompt });
+    },
+    [sendMessage]
+  );
+
   const content = useMemo(() => {
     if (sessionStarted) {
       return <MessagesList messages={messages} />;
@@ -63,11 +70,21 @@ export default function MainScreen() {
     }
 
     if (!isUserTyping) {
-      return <ConversationStarterCarousel />;
+      return (
+        <ConversationStarterCarousel
+          onItemSelected={handleConversationStarterCarouselItemSelected}
+        />
+      );
     }
 
     return null;
-  }, [temporaryChatSelected, isUserTyping, sessionStarted, messages]);
+  }, [
+    temporaryChatSelected,
+    isUserTyping,
+    sessionStarted,
+    messages,
+    handleConversationStarterCarouselItemSelected,
+  ]);
 
   return (
     <SafeAreaView style={styles.container}>
