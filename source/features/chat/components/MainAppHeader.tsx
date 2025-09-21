@@ -9,11 +9,15 @@ import { ModelSelector } from './ModelSelector';
 type Props = {
   temporaryChatSelected: boolean;
   onPressTemporaryChat?: () => void;
+  sessionStarted: boolean;
+  onPressCompose?: () => void;
 };
 
 export const MainAppHeader = ({
   temporaryChatSelected,
   onPressTemporaryChat,
+  sessionStarted,
+  onPressCompose,
 }: Props) => {
   const styles = useStyles(createStyles);
   const { theme } = useTheme();
@@ -22,6 +26,11 @@ export const MainAppHeader = ({
   const handlePressTemporaryChat = () => {
     Haptics.impactAsync();
     onPressTemporaryChat?.();
+  };
+
+  const handlePressCompose = () => {
+    Haptics.impactAsync();
+    onPressCompose?.();
   };
 
   return (
@@ -64,16 +73,27 @@ export const MainAppHeader = ({
         )}
       </View>
       <View style={styles.headerRight}>
-        <TouchableOpacity
-          activeOpacity={ACTIVE_OPACITY.WEAK}
-          onPress={handlePressTemporaryChat}
-        >
-          <Icon
-            name={
-              temporaryChatSelected ? 'temporary-chat-on' : 'temporary-chat-off'
-            }
-          />
-        </TouchableOpacity>
+        {sessionStarted ? (
+          <TouchableOpacity
+            activeOpacity={ACTIVE_OPACITY.WEAK}
+            onPress={handlePressCompose}
+          >
+            <Icon name={'compose'} />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            activeOpacity={ACTIVE_OPACITY.WEAK}
+            onPress={handlePressTemporaryChat}
+          >
+            <Icon
+              name={
+                temporaryChatSelected
+                  ? 'temporary-chat-on'
+                  : 'temporary-chat-off'
+              }
+            />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

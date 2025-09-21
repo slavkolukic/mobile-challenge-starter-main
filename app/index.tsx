@@ -16,7 +16,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useStyles } from '../source/core/hooks';
 
 export default function MainScreen() {
+  const [chatId, setChatId] = useState<number>(1);
+
   const { messages, sendMessage } = useChat({
+    id: chatId?.toString(),
     transport: new DefaultChatTransport({
       fetch: expoFetch as unknown as typeof globalThis.fetch,
       api: generateAPIUrl('/api/chat'),
@@ -31,6 +34,7 @@ export default function MainScreen() {
   const isUserTyping = useMemo(() => {
     return text.length > 0;
   }, [text]);
+
   const sessionStarted = useMemo(() => {
     return messages.length > 0;
   }, [messages]);
@@ -42,6 +46,11 @@ export default function MainScreen() {
 
   const handlePressTemporaryChat = () => {
     setTemporaryChatSelected(previous => !previous);
+  };
+
+  const handlePressCompose = () => {
+    setText('');
+    setChatId(previous => previous + 1);
   };
 
   const content = useMemo(() => {
@@ -63,8 +72,10 @@ export default function MainScreen() {
   return (
     <SafeAreaView style={styles.container}>
       <MainAppHeader
+        sessionStarted={sessionStarted}
         temporaryChatSelected={temporaryChatSelected}
         onPressTemporaryChat={handlePressTemporaryChat}
+        onPressCompose={handlePressCompose}
       />
       <View style={styles.contentContainer}>{content}</View>
       <MainInput
