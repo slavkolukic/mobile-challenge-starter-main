@@ -24,11 +24,17 @@ type Props = {
   onSendMessage?: () => void;
   text: string;
   onTextChange: (text: string) => void;
+  actionsDisabled?: boolean;
 };
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
-export const MainInput = ({ onSendMessage, text, onTextChange }: Props) => {
+export const MainInput = ({
+  onSendMessage,
+  text,
+  onTextChange,
+  actionsDisabled,
+}: Props) => {
   const styles = useStyles(createStyles);
   const { theme } = useTheme();
 
@@ -81,6 +87,7 @@ export const MainInput = ({ onSendMessage, text, onTextChange }: Props) => {
       <TouchableOpacity
         activeOpacity={ACTIVE_OPACITY.WEAK}
         onPress={handleAttachmentButtonPress}
+        disabled={actionsDisabled}
         style={styles.attachmentButton}
       >
         <Icon color={theme.colors.iconSecondary} size={22} name="plus" />
@@ -99,6 +106,7 @@ export const MainInput = ({ onSendMessage, text, onTextChange }: Props) => {
         <View style={styles.iconsContainer}>
           {!isUserTyping && (
             <AnimatedPressable
+              disabled={actionsDisabled}
               style={[styles.microphoneButton, micAnimatedStyle]}
               onPress={handleMicrophoneButtonPress}
             >
@@ -110,6 +118,7 @@ export const MainInput = ({ onSendMessage, text, onTextChange }: Props) => {
             </AnimatedPressable>
           )}
           <AnimatedPressable
+            disabled={actionsDisabled}
             style={[styles.mainActionButton, mainAnimatedStyle]}
             onPress={handleMainActionButtonPress}
           >

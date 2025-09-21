@@ -18,7 +18,7 @@ import { useStyles } from '../source/core/hooks';
 export default function MainScreen() {
   const [chatId, setChatId] = useState<number>(1);
 
-  const { messages, sendMessage } = useChat({
+  const { messages, sendMessage, status } = useChat({
     id: chatId?.toString(),
     transport: new DefaultChatTransport({
       fetch: expoFetch as unknown as typeof globalThis.fetch,
@@ -99,6 +99,7 @@ export default function MainScreen() {
         text={text}
         onTextChange={setText}
         onSendMessage={handleSendMessage}
+        actionsDisabled={status !== 'ready'}
       />
     </SafeAreaView>
   );
